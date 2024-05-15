@@ -1,0 +1,36 @@
+package dataStructures;
+
+public class DDL {
+
+	Node head;
+	Node tail;
+	
+	public DDL() {
+		this.head=null;
+		this.tail=null;
+	}
+	
+	public void insertAtEnd(int data) {
+		Node newNode = new Node(data);
+		
+		if(head == null) {
+			head = newNode;
+			tail = newNode;
+		} else {
+			newNode.prev = tail;
+			tail.next = newNode;
+			tail = newNode;
+		}}
+		
+		public void display() {
+			Node current = head;
+			while (current != null) {
+				System.out.print(current.data + "");
+			    current = current.next;
+			}
+			System.out.println();
+		
+		
+	}
+}
+
