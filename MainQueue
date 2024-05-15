@@ -1,0 +1,23 @@
+package dataStructures;
+
+public class MainQueue {
+	public static void main(String[] args) {
+    Queue q = new Queue();
+   
+    q.EnQueue(1);
+    q.EnQueue(2);
+    q.EnQueue(5);
+    
+    q.print();
+    
+   
+    q.DeQueue();
+    q.DeQueue();
+    
+ 
+    q.print();
+    
+    System.out.println("Front element: " + q.front());
+
+    }
+}
