@@ -1,0 +1,36 @@
+package linkedlist;
+
+public class LinkedList {
+	private class node{
+		int data;
+		node next;
+		node (int num){
+			this.data=num;
+			
+		}
+	}
+	private node head;
+	public void print(){
+		node i=head;
+		while(i!=null) {
+			System.out.println(i.data+" ");
+			i=i.next;  
+		}
+		
+	}
+	public void insert(int value) {
+		node newnode = new node(value);
+		if(head == null) {
+			
+			head =newnode;
+			
+		}
+		else {
+			node i =head;
+			while(i.next!=null) {
+				i=i.next;
+			}
+			i.next=newnode;
+		}
+	}
+	}
