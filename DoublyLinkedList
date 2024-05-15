@@ -1,0 +1,63 @@
+
+class DoublyLinkedList {
+    Node head;
+    Node tail;
+
+    void insertAtBeginning(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            newNode.next = head;
+            head.prev = newNode;
+            head = newNode;
+        }
+    }
+
+    void insertAtEnd(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            tail.next = newNode;
+            newNode.prev = tail;
+            tail = newNode;
+        }
+    }
+
+    void delete(int data) {
+        Node current = head;
+        while (current != null) {
+            if (current.data == data) {
+                if (current == head && current == tail) {
+                    head = null;
+                    tail = null;
+                } else if (current == head) {
+                    head = current.next;
+                    head.prev = null;
+                } else if (current == tail) {
+                    tail = current.prev;
+                    tail.next = null;
+                } else {
+                    current.prev.next = current.next;
+                    current.next.prev = current.prev;
+                }
+                break;
+            }
+            current = current.next;
+        }
+    }
+
+    void display() {
+        Node current = head;
+        while (current != null) {
+            System.out.print(current.data + " ");
+            current = current.next;
+        }
+        System.out.println();
+    }
+}
+
+
