@@ -1,0 +1,17 @@
+package dataStructures;
+
+public class MainQueueLinkedList {
+
+	public static void main(String[] args) {
+		QueueLinkedList MEME = new QueueLinkedList();
+		
+		MEME.enqueue(10);
+	        MEME.enqueue(20);
+	        MEME.print();
+	        MEME.dequeue();
+	        MEME.enqueue(30);
+	        
+	        MEME.print();
+	      
+	}
+}
