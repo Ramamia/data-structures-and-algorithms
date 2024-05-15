@@ -1,0 +1,62 @@
+package dataStructures;
+import java.util.Scanner;
+
+public class Fibonacci {
+
+	//John's solution
+    public static int FibRecursiveTime(int num) {
+        long RecursiveStartTime = System.nanoTime();
+        int result = fibRecursive(num);
+        long RecursiveEndTime = System.nanoTime();
+        long RecursiveElapsedTime = RecursiveEndTime - RecursiveStartTime;
+        System.out.println("Recursive Time: " + RecursiveElapsedTime + " nanoseconds");
+        return result;
+    }
+
+    private static int fibRecursive(int num) {
+        if (num <= 1) {
+            return num;
+        } else {
+            return fibRecursive(num - 1) + fibRecursive(num - 2);
+        }
+    }
+
+    //Sarah's solution
+    public static int FibLoopTime(int num) {
+        long LoopStartTime = System.nanoTime();
+        int result=fibLoop(num);
+        long LoopEndTime = System.nanoTime();
+        long LoopElapsedTime = LoopEndTime - LoopStartTime;
+        System.out.println("Loop Time: " + LoopElapsedTime + " nanoseconds");
+        return result;
+    }
+
+    private static int fibLoop(int num) {
+        if (num <= 1) {
+            return num;
+        }
+        int F = 1;
+        int F1 = 0;
+        int F2 = 1;
+        for (int i = 2; i <= num; i++) {
+            F = F1 + F2;
+            F1 = F2;
+            F2 = F;
+        }
+        return F;
+    }
+
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter an integer (index in fibonacci): ");
+        int number = input.nextInt();
+
+        System.out.println("Using recursive: " + fibRecursive(number));
+        FibRecursiveTime(number);
+        System.out.println("Using for loop: " + fibLoop(number));
+        FibLoopTime(number);
+        input.close();
+    }
+    
+}
+
