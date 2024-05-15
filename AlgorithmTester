@@ -1,0 +1,86 @@
+
+package dataStructures;
+import java.util.Arrays;
+import java.util.Random;
+
+public class AlgorithmTester {
+
+    public static void main(String[] args) {
+        int[] dataset1 = generateDataset(1000);
+        int[] dataset2 = generateDataset(5000);
+
+        long mergeSortTime1 = measureExecutionTime(() -> {
+            long startTime = System.nanoTime();
+            MergeSort.mergeSort(dataset1.clone());
+            long endTime = System.nanoTime();
+            System.out.println("Merge Sort execution time for 1000 dataset: " + (endTime - startTime) + " nanoseconds");
+        });
+
+        long mergeSortTime2 = measureExecutionTime(() -> {
+            long startTime = System.nanoTime();
+            MergeSort.mergeSort(dataset2.clone());
+            long endTime = System.nanoTime();
+            System.out.println("Merge Sort execution time for 5000 dataset: " + (endTime - startTime) + " nanoseconds");
+        });
+
+        long selectionSortTime1 = measureExecutionTime(() -> {
+            long startTime = System.nanoTime();
+            SelectionSort.selectionSort(dataset1.clone());
+            long endTime = System.nanoTime();
+            System.out.println("Selection Sort execution time for 1000 dataset: " + (endTime - startTime) + " nanoseconds");
+        });
+
+        long selectionSortTime2 = measureExecutionTime(() -> {
+            long startTime = System.nanoTime();
+            SelectionSort.selectionSort(dataset2.clone());
+            long endTime = System.nanoTime();
+            System.out.println("Selection Sort execution time for 5000 dataset: " + (endTime - startTime) + " nanoseconds");
+        });
+
+        Arrays.sort(dataset1);
+        Arrays.sort(dataset2);
+
+        int target1 = dataset1[0];
+        int target2 = dataset2[0];
+
+        long binarySearchTime1 = measureExecutionTime(() -> {
+            long startTime = System.nanoTime();
+            BinarySearch.binarySearch(dataset1, target1);
+            long endTime = System.nanoTime();
+            System.out.println("Binary Search execution time for 1000 dataset: " + (endTime - startTime) + " nanoseconds");
+        });
+
+        long binarySearchTime2 = measureExecutionTime(() -> {
+            long startTime = System.nanoTime();
+            BinarySearch.binarySearch(dataset2, target2);
+            long endTime = System.nanoTime();
+            System.out.println("Binary Search execution time for 5000 dataset: " + (endTime - startTime) + " nanoseconds");
+        });
+
+        printExecutionTimes("Merge Sort", mergeSortTime1, mergeSortTime2);
+        printExecutionTimes("Selection Sort", selectionSortTime1, selectionSortTime2);
+        printExecutionTimes("Binary Search", binarySearchTime1, binarySearchTime2);
+    }
+
+    private static int[] generateDataset(int size) {
+        int[] dataset = new int[size];
+        Random rand = new Random();
+        for (int i = 0; i < size; i++) {
+            dataset[i] = rand.nextInt(1000);
+        }
+        return dataset;
+    }
+
+    private static long measureExecutionTime(Runnable task) {
+        long startTime = System.nanoTime();
+        task.run();
+        return System.nanoTime() - startTime;
+    }
+
+    private static void printExecutionTimes(String algorithm, long time1, long time2) {
+        System.out.println("Execution times for " + algorithm + ":");
+        System.out.println("   1000 dataset: " + time1 + " nanoseconds");
+        System.out.println("   5000 dataset: " + time2 + " nanoseconds");
+    }
+}
+
