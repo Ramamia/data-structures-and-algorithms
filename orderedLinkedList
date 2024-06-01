@@ -1,0 +1,65 @@
+package partOneTaskThreePointFour;
+
+public class OrderedLinkedLIst {
+    private Node head; // O(1) 
+    
+    private class Node {
+        int data; // O(1) 
+        Node next; // O(1) 
+
+        Node(int data) {
+            this.data = data; // O(1) 
+            this.next = null; // O(1) 
+        }
+    }
+
+    // Search method
+    public boolean searchOperation(int target) {
+        Node current = head; // O(1) 
+        while (current != null && current.data <= target) { // O(n) >> traverse the list until the end or target is exceeded
+            if (current.data == target) { // O(1) 
+                return true; // O(1) 
+            }
+            current = current.next; // O(1) 
+        }
+        return false; // O(1) 
+    }
+
+    // Insert method to keep the list ordered
+    public void insertOperation(int value) {
+        Node newNode = new Node(value); // O(1) 
+        if (head == null || head.data > value) { // O(1) >> check if the list is empty or head's data is greater than value
+            newNode.next = head; // O(1) >> point new node to the current head
+            head = newNode; // O(1) 
+        } else {
+            Node current = head; // O(1) 
+            while (current.next != null && current.next.data < value) { // O(n) >> traverse to find the correct position
+                current = current.next; // O(1) 
+            }
+            newNode.next = current.next; // O(1) 
+            current.next = newNode; // O(1) 
+        }
+    }
+
+    // Remove method
+    public void removeOperation(int value) {
+        if (head == null) { // O(1) - check if the list is empty
+            return; // O(1) - nothing to remove
+        }
+        if (head.data == value) { // O(1) - check if the head is the node to be removed
+            head = head.next; // O(1) - remove the head node
+            return; // O(1)
+        }
+        Node prev = head; // O(1) 
+        Node current = head.next; // O(1) 
+        while (current != null) { // O(n) >> traverse the list
+            if (current.data == value) { // O(1) >> check if the current node has the target value
+                prev.next = current.next; // O(1) 
+                return; // O(1)
+            }
+            prev = current; // O(1) 
+            current = current.next; // O(1) 
+        }
+    }
+}
+
