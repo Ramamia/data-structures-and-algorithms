@@ -1,0 +1,88 @@
+package partOneTaskThreePointFour;
+
+public class UnbalancedBST {
+    private Node root;
+
+    // Inner Node class to represent the elements of the tree
+    private class Node {
+        int data;
+        Node left;
+        Node right;
+
+        Node(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
+    }
+
+    // Search method - balanced BST(worst-case scenario)
+    public boolean searchOperation(int target) {
+        return searchOperation(root, target); //O(n) this line calls the private search method
+    }
+
+    private boolean searchOperation(Node node, int target) {
+        if (node == null) {
+            return false; //O(1) >> base case
+        }
+        if (node.data == target) {
+            return true; //O(1) >> base case (target found)
+        }
+        return searchOperation(node.left, target) || searchOperation(node.right, target); // Search in both subtrees
+           //O(n) because it traverses all the nodes 
+    }
+    
+
+    // Insert method - balanced BST(worst-case scenario)
+    public void insertOperation(int value) {
+        root = insertOperation(root, value); //O(n) this line calls the private insert method
+    }
+
+    private Node insertOperation(Node node, int value) {
+        if (node == null) {
+            return new Node(value);//O(1) >> base case
+        }
+        if (value < node.data) {
+            node.left = insertOperation(node.left, value); // O(n) >> Insert in the left subtree(recursive)
+        } else {
+            node.right = insertOperation(node.right, value); // O(n) >> Insert in the right subtree(recursive)
+        }
+        return node;
+    }
+ 
+    // Remove method - balanced BST(worst-case scenario)
+    public void removeOperation(int value) {
+        root = removeOperation(root, value);// O(n) this line calls the private remove method
+    }
+
+    private Node removeOperation(Node node, int value) {
+        if (node == null) {
+            return null; // O(1) >> base case
+        }
+        if (value < node.data) {
+            node.left = removeOperation(node.left, value); // O(n) >> Remove from the left subtree(recursive)
+        } else if (value > node.data) {
+            node.right = removeOperation(node.right, value); // O(n) >> Remove from the right subtree(recursive)
+        } else {
+            // Node with only one child or no child
+            if (node.left == null) {
+                return node.right;// O(1)
+            } else if (node.right == null) {
+                return node.left;//O(1)
+            }
+
+            node.data = minValue(node.right);//O(n) >> fine the inorder successor
+            node.right = removeOperation(node.right, node.data);//O(n) >> remove the inorder successor(recursive)
+        }
+        return node;
+    }
+
+    private int minValue(Node node) {
+        int min = node.data;
+        while (node.left != null) {
+            min = node.left.data;
+            node = node.left; // O(n) >> traverses the left subtree
+        }
+        return min;
+    }
+}
