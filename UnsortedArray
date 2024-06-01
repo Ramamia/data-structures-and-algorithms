@@ -1,0 +1,46 @@
+package partOneTaskThreePointFour;
+
+public class UnsortedArray {
+    private int[] array;
+    private int size;
+    private static final int DEFAULT_CAPACITY = 10;
+
+    public UnsortedArray() {
+        array = new int[DEFAULT_CAPACITY]; // O(1) 
+        size = 0; // O(1) 
+    }
+
+    // Search method using linear search
+    public int searchOperation(int target) {
+        for (int i = 0; i < size; i++) { // O(n) >> linear search loop
+            if (array[i] == target) { // O(1)
+                return i; // O(1)
+            }
+        }
+        return -1; // O(1)
+    }
+
+    // Insert method
+    public void insertOperation(int value) {
+        if (size == array.length) { // O(1) 
+        	
+            int[] newArray = new int[array.length * 2]; // O(1)
+            System.arraycopy(array, 0, newArray, 0, array.length); // O(n) 
+            array = newArray; // O(1) 
+        }
+        array[size] = value; // O(1) 
+        size++; // O(1) 
+    }
+
+    // Remove method
+    public void removeOperation(int value) {
+        int index = searchOperation(value); // O(n)
+        if (index != -1) {
+            for (int i = index; i < size - 1; i++) { // O(n) >> shifting elements to the left
+                array[i] = array[i + 1]; // O(1) 
+            }
+            size--; // O(1)
+        }
+    }
+}
+
